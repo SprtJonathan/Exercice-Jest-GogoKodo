@@ -1,22 +1,19 @@
 const { GogoKodo } = require("./algo.js");
 
-const mockCallback = jest.fn((x) => x);
-const fake = jest.fn(() => {
-  return "salut";
-});
-
-test("The parameter for GogoKodo function should be a number between 1 and 100", () => {
-  expect(GogoKodo(1000)).toBe(1000);
-});
-
-test("If the parameter is divisible by 3, then Gogo", () => {
-  expect(GogoKodo(33)).toBe("Gogo")
-});
-
-test("If the parameter is divisible by 5, then Kodo", () => {
-  expect(GogoKodo(100)).toBe("Kodo")
-});
-
-test("If the parameter is divisible by 3 and 5, then GogoKodo", () => {
-  expect(GogoKodo(30)).toBe("GogoKodo")
+describe("We try the different conditions required to pass the tests", () => {
+  const watchConsole = jest.spyOn(console, "log");
+  GogoKodo();
+  test("The number is divisible by 3 and 5", () => {
+    for (i = 0; i < 100; i++) {
+      if (Number.isInteger((i + 1) / 3) && Number.isInteger((i + 1) / 5)) {
+        expect(watchConsole.mock.calls[i][0]).toBe("GogoKodo");
+      } else if (Number.isInteger((i + 1) / 3)) {
+        expect(watchConsole.mock.calls[i][0]).toBe("Gogo");
+      } else if (Number.isInteger((i + 1) / 5)) {
+        expect(watchConsole.mock.calls[i][0]).toBe("Kodo");
+      } else {
+        expect(watchConsole.mock.calls[i][0]).toBe(i + 1);
+      }
+    }
+  });
 });
